@@ -18,7 +18,7 @@ jobs:
 
     env: 
       message1: "Hello"
-      meassage2: "World"
+      message2: "World"
       
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -27,8 +27,8 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
-      - name: prints en
+      - name: prints envs
         run: | 
-          echo "message1: $greating"
-          echo "message2: $masterhackersdev"
-          echo "$greating $masterhackersdev"
+          echo "message1: $message1"
+          echo "message2: $message2"
+          echo "$message1 $message2"
