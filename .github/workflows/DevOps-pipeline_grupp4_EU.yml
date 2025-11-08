@@ -1,0 +1,37 @@
+name: eriks weather pipeline
+
+on:
+
+    workflow_dispatch:
+
+jobs:
+    testing-koordinates:
+        runs-on: ubuntu-latest
+
+        steps:
+
+         -  name: Gets the whole repo
+            uses: actions/checkout@v4
+
+         -  name: Installs latest version of python
+            uses: actions/setup-python@v5
+
+            with: 
+                python-version: "3.11"
+
+         -  name: Install pytest
+            run: pip install pytest
+
+         -  name: Runs the test
+            run: pytest -q
+
+         -  name: Pytest ok
+            if: ${{ success() }}
+            run: echo "Pytest OK ✅"
+
+
+
+
+
+        
+    

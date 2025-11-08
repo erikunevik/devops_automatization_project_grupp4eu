@@ -1,20 +1,11 @@
 import requests
 import pandas as pd
 
-latitude_st = "59.30"
-longitude_st = "18.02"
-latitude_gb = "57.70"
-longitude_gb = "11.97"
-latitude_ma = "59.33"
-longitude_ma = "11.07"
 
 städer = {
-    "stockholm": {"latitude": latitude_st,
-                "longitude": longitude_st},
-    "göteborg": {"latitude": latitude_gb,
-                "longitude": longitude_gb},
-    "malmö": {"latitude": latitude_gb,
-                "longitude": longitude_gb}
+    "stockholm": {"latitude": "59.30", "longitude": "18.02"},
+    "göteborg": {"latitude": "57.70", "longitude": "11.97"},
+    "malmö": {"latitude": "59.33", "longitude": "11.07"}
 }
 
 def get_weather_data(city):
