@@ -29,7 +29,7 @@ jobs:
             pip install -r requirements.txt
 
          -  name: Runs the test
-            run: pytest -q
+            run: pytest pytests/
 
          - name: Pytest with if-else
            run: |
