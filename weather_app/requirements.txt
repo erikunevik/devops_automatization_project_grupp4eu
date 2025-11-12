@@ -1,5 +1,0 @@
-requests
-pandas
-pytest
-streamlit
-plotly
