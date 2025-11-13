@@ -7,7 +7,6 @@ on:
     inputs:
       logg-error-generator:
         description: "Do you want to generate a logg-error artefact (true/false)"
-        required: false
         default: "false"
 
 jobs:
