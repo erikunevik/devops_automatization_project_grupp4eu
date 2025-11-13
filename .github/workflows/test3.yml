@@ -8,6 +8,8 @@ on:
       logg-error-generator:
         description: "Do you want to generate a logg-error artefact (true/false)"
         default: "false"
+        type: choice 
+        options: ["true", "false"]
 
 jobs:
   testing:
@@ -28,6 +30,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run unit test
+        shell: bash
         run:  pytest -q weather_app/pytests/test_city_coordinates.py
             
       - name: Run integration test
@@ -35,10 +38,16 @@ jobs:
             
       - name: upload-error-artifact
         if: failure() && github.event.inputs.logg-error-generator == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: failed-test-log
-          path: logs
+          - shell: bash
+            run: | 
+              pytest -q weather_app/pytests/test_api_call.py > logs.txt
+              pytest -q weather_app/pytests/test_city_coordinates.py > logs.txt
+            uses: actions/upload-artifact@v4
+            with:
+              name: failed-test-log
+              path: logs.txt
+
+
 
   building-docker-image:
     needs: testing
