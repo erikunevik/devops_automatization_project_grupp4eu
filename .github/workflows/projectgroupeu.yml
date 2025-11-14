@@ -14,6 +14,9 @@ on:
         options: ["true", "false"]
 
 jobs:
+
+ # First job that conducts a pytest checking the validity for the weather applications coordinates
+ # And a second test asserting that the API respods succesfully to my request / i.e. 200
   testing:
     runs-on: ubuntu-latest
 
@@ -31,31 +34,42 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+
+      # If options in workflow dispatch == true and any of the tests fails, an artifcat log is generated
       - name: Run unit test false
         if: ${{ github.event.inputs.logg-error-generator == 'false' }}
-        run:  pytest -q weather_app/pytests/test_city_coordinates.py
+        run: |  
+          pytest -q weather_app/pytests/test_city_coordinates.py
+          echo "✅  Unit test successful"
 
       - name: Run unit test true
         if: ${{ github.event.inputs.logg-error-generator == 'true' }}
         shell: bash
-        run: pytest -q weather_app/pytests/test_city_coordinates.py > logs.txt
+        run: |  
+          pytest -q weather_app/pytests/test_city_coordinates.py > logs.txt
+          echo "✅ Unit test successful"
         
       - name: Run integration test false
         if: ${{ github.event.inputs.logg-error-generator == 'false' }}
-        run: pytest -q weather_app/pytests/test_api_call.py
+        run: | 
+          pytest -q weather_app/pytests/test_api_call.py
+          echo "✅ Intergration test successful"
 
       - name: Run integration test true
         if: ${{ github.event.inputs.logg-error-generator == 'true' }}
         shell: bash
-        run: pytest -q weather_app/pytests/test_api_call.py > logs.txt
-        
+        run: | 
+          pytest -q weather_app/pytests/test_api_call.py > logs.txt
+          echo "✅ Intergration test successful"
+          
       - name: upload-error-artifact
         if: ${{ failure() && github.event.inputs.logg-error-generator == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-            name: failed-test-log
-            path: logs.txt
+          name: failed-test-log
+          path: logs.txt
 
+# Second job,  creating a docker image connected to my dockerhub repository
   building-docker-image:
     needs: testing
     runs-on: ubuntu-latest
@@ -90,3 +104,5 @@ jobs:
       - name: Report failure
         if: failure()
         run: echo "❌ Docker image build or pushed failed"
+
+# URL to the dashboard test112112025-ahg0hngtf2hmfhf9.swedencentral-01.azurewebsites.net
