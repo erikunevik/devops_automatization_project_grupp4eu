@@ -69,6 +69,10 @@ jobs:
           name: failed-test-log
           path: logs.txt
 
+      - name: Show failure message
+        if: failure()
+        run: echo "❌ One or more tests failed. Check uploaded artifact if you choose logg-error-artefact (true) ."
+
 # Second job,  creating a docker image connected to my dockerhub repository
   building-docker-image:
     needs: testing
@@ -101,8 +105,5 @@ jobs:
         if: success()
         run: echo "✅ Image successfully built and pushed"
 
-      - name: Report failure
-        if: failure()
-        run: echo "❌ Docker image build or pushed failed"
 
-# URL to the dashboard test112112025-ahg0hngtf2hmfhf9.swedencentral-01.azurewebsites.net
+# URL to the dashboard: test112112025-ahg0hngtf2hmfhf9.swedencentral-01.azurewebsites.net
