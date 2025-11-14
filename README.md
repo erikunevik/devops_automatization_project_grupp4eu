@@ -1,4 +1,6 @@
-# devops_automatization_project
-Groupwork creating a data pipeline using devops methodology v
+# Weather App DevOps Pipeline
 
-All the best / Erik, Alexander, Marcus and Eyoub
+This repository contains a simple weather application covering the weather in Stockholm, Göteborg and Malmö for the past 24 hours - along with a CI/CD pipeline implemented using GitHub Actions. The pipeline automates testing and Docker image building and pushing.
+
+
+All the best / Erik
