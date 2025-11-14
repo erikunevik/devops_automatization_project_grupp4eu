@@ -104,6 +104,9 @@ jobs:
       - name: Confirm image pushed
         if: success()
         run: echo "✅ Image successfully built and pushed"
+      - name: Show failure message
+        if: failure()
+        run: echo "❌ Failed to create image."
 
 
 # URL to the dashboard: test112112025-ahg0hngtf2hmfhf9.swedencentral-01.azurewebsites.net
